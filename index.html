@@ -7,54 +7,56 @@
     <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
+    <!-- Header Section -->
     <header>
         <h1>Welcome to My Data Visualization Blog</h1>
+        <p>Your destination for interactive and insightful visualizations.</p>
+        <div style="background-color: #f0f8ff; padding: 20px; text-align: center;">
+            <img src="assets/visualization_banner.png" alt="Visualization Banner" 
+                 style="width: 100%; max-height: 300px; object-fit: cover;">
+        </div>
         <nav>
-            <ul>
+            <ul style="list-style: none; padding: 0; display: flex; justify-content: center; gap: 15px;">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
             </ul>
         </nav>
     </header>
+
+    <!-- Main Content Section -->
     <main>
-        <h2>Projects</h2>
-        <ul>
-            <li><a href="projects/life_expectancy_ranking.html">Life Expectancy Ranking Visualization</a></li>
-            <li><a href="projects/government_coverage_map.html">Government Coverage Map</a></li>
-            <li><a href="projects/private_coverage_map.html">Private Coverage Map</a></li>
-            <li><a href="projects/gstat_smoking.html">Smoking Trends Visualization</a></li>
-        </ul>
+        <h2 style="text-align: center;">Projects</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px;">
+            <!-- Project 1 -->
+            <div style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; background-color: #fafafa;">
+                <h3>Life Expectancy Ranking</h3>
+                <p>An interactive visualization showcasing the ranking of life expectancy over time.</p>
+                <a href="projects/life_expectancy_ranking.html" style="color: #007BFF;">View Project</a>
+            </div>
+            <!-- Project 2 -->
+            <div style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; background-color: #fafafa;">
+                <h3>Government Coverage Map</h3>
+                <p>A visualization exploring government health coverage trends.</p>
+                <a href="projects/government_coverage_map.html" style="color: #007BFF;">View Project</a>
+            </div>
+            <!-- Project 3 -->
+            <div style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; background-color: #fafafa;">
+                <h3>Private Coverage Map</h3>
+                <p>A visualization of private health coverage trends.</p>
+                <a href="projects/private_coverage_map.html" style="color: #007BFF;">View Project</a>
+            </div>
+            <!-- Project 4 -->
+            <div style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; background-color: #fafafa;">
+                <h3>Smoking Trends Visualization</h3>
+                <p>An interactive chart showcasing smoking trends over time.</p>
+                <a href="projects/gstat_smoking.html" style="color: #007BFF;">View Project</a>
+            </div>
+        </div>
     </main>
+
+    <!-- Footer Section -->
     <footer>
-        <p>&copy; 2024 Qhtani1996. All rights reserved.</p>
+        <p style="text-align: center;">&copy; 2024 Qhtani1996. All rights reserved.</p>
     </footer>
 </body>
 </html>
-<header>
-    <h1>Welcome to My Data Visualization Blog</h1>
-    <p>Your destination for interactive and insightful visualizations.</p>
-    <div style="background-color: #f0f8ff; padding: 20px; text-align: center;">
-        <img src="assets/visualization_banner.png" alt="Visualization Banner" style="width: 100%; max-height: 300px; object-fit: cover;">
-    </div>
-</header>
-<main>
-    <h2>Projects</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-        <div style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; background-color: #fafafa;">
-            <h3>Life Expectancy Ranking</h3>
-            <p>An interactive visualization showcasing the ranking of life expectancy over time.</p>
-            <a href="projects/ranking_LE2.html" style="color: #007BFF;">View Project</a>
-        </div>
-        <div style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; background-color: #fafafa;">
-            <h3>Heatmap of Life Expectancy</h3>
-            <p>A heatmap exploring life expectancy trends across countries and years.</p>
-            <a href="projects/heatmap_LE.html" style="color: #007BFF;">View Project</a>
-        </div>
-        <div style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; background-color: #fafafa;">
-            <h3>Ridgeline Plot of Life Expectancy</h3>
-            <p>Compare life expectancy distributions across years using a ridgeline plot.</p>
-            <a href="projects/ridgeline_LE.html" style="color: #007BFF;">View Project</a>
-        </div>
-    </div>
-</main>
-<li><a href="about.html">About</a></li>
