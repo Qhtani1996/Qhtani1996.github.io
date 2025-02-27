@@ -5,77 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meshal AlQahtani | Portfolio</title>
     <link rel="stylesheet" href="styles.css"> <!-- Ensure this file exists for styling -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(to right, #4A90E2, #8E44AD);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .btn {
+            display: inline-block;
+            background: #8E44AD;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #4A90E2;
+        }
+        .projects, .about, .contact {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .project {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <div class="header__text-box row">
-            <div class="header__text">
-                <h1 class="heading-primary">
-                    <span> Meshal AlQahtani MPH </span>
-                </h1>
-                <p>A data analyst passionate about data visualization and GIS mapping.</p>
-                <a href="#contact" class="btn btn--pink">Get in Touch</a>
-            </div>
-        </div>
+        <h1>Meshal AlQahtani MPH</h1>
+        <p>A data analyst passionate about data visualization and GIS mapping.</p>
+        <a href="#contact" class="btn">Get in Touch</a>
     </header>
 
     <section class="projects" id="projects">
-        <div class="row">
-            <h2>My Projects</h2>
-            <div class="projects__list">
-                
-                <div class="project">
-                    <h3>Government Coverage Map</h3>
-                    <p>A visualization of government healthcare coverage.</p>
-                    <iframe src="./projects/Government_Coverage_Map_upsated.html" class="project__iframe"></iframe>
-                    <a href="./projects/Government_Coverage_Map_upsated.html" class="btn">View Full Map</a>
-                </div>
+        <h2>My Projects</h2>
+        <div class="project">
+            <h3>Government Coverage Map</h3>
+            <p>A visualization of government healthcare coverage.</p>
+            <iframe src="./projects/Government_Coverage_Map_upsated.html"></iframe>
+            <a href="./projects/Government_Coverage_Map_upsated.html" class="btn">View Full Map</a>
+        </div>
 
-                <div class="project">
-                    <h3>Private Coverage Map</h3>
-                    <p>A visualization of private healthcare coverage.</p>
-                    <iframe src="./projects/Private_Coverage_Map_updated.html" class="project__iframe"></iframe>
-                    <a href="./projects/Private_Coverage_Map_updated.html" class="btn">View Full Map</a>
-                </div>
+        <div class="project">
+            <h3>Private Coverage Map</h3>
+            <p>A visualization of private healthcare coverage.</p>
+            <iframe src="./projects/Private_Coverage_Map_updated.html"></iframe>
+            <a href="./projects/Private_Coverage_Map_updated.html" class="btn">View Full Map</a>
+        </div>
 
-                <div class="project">
-                    <h3>Drug Intoxications in Saudi Arabia</h3>
-                    <p>Detailed report on drug intoxication cases.</p>
-                    <a href="./Drug_Intoxications_SA.pdf" class="btn">View PDF</a>
-                </div>
-            </div>
+        <div class="project">
+            <h3>Drug Intoxications in Saudi Arabia</h3>
+            <p>Detailed report on drug intoxication cases.</p>
+            <a href="./Drug_Intoxications_SA.pdf" class="btn">View PDF</a>
         </div>
     </section>
 
     <section class="project" id="project">
-        <div class="row">
-            <h2>Life Expectancy Comparison</h2>
-            <p>Across the G20 countries, comparing the year 2000 vs. 2020.</p>
-            <iframe src="./projects/life_expectancy_comapre.html" class="project__iframe"></iframe>
-            <a href="./projects/life_expectancy_comapre.html" class="btn">View Analysis</a>
-        </div>
+        <h2>Life Expectancy Comparison</h2>
+        <p>Across the G20 countries, comparing the year 2000 vs. 2020.</p>
+        <iframe src="./projects/life_expectancy_comapre.html"></iframe>
+        <a href="./projects/life_expectancy_comapre.html" class="btn">View Analysis</a>
     </section>
 
     <section class="about" id="about">
-        <div class="row">
-            <h2>About Me</h2>
-            <p>Data analyst with expertise in healthcare mapping and visualization.</p>
-            <a href="#" class="btn">My Resume</a>
-        </div>
+        <h2>About Me</h2>
+        <p>Data analyst with expertise in healthcare mapping and visualization.</p>
+        <a href="#" class="btn">My Resume</a>
     </section>
 
     <section class="contact" id="contact">
-        <div class="row">
-            <h2>Get in Touch</h2>
-            <p>If you're interested in collaborating or have questions, feel free to reach out.</p>
-            <a href="mailto:alqahtanimeshal96@gmail.com" class="btn">Email Me</a>
-        </div>
+        <h2>Get in Touch</h2>
+        <p>If you're interested in collaborating or have questions, feel free to reach out.</p>
+        <a href="mailto:alqahtanimeshal96@gmail.com" class="btn">Email Me</a>
     </section>
 
     <footer>
-        <div class="row">
-            <p>&copy; 2025 - Designed & developed by Meshal AlQahtani</p>
-        </div>
+        <p>&copy; 2025 - Designed & developed by Meshal AlQahtani</p>
     </footer>
 </body>
 </html>
