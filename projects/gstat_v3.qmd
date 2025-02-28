@@ -1,0 +1,129 @@
+---
+title: "GSTAT Report"
+author: "MESHAL ALQAHTANI"
+format:
+  html:
+    theme: journal
+    toc: true
+    toc-title: "Contents"
+    toc-location: left
+    number-sections: true
+    css: styles.css
+    include-in-header:
+      - text: |
+          <style>
+            body { font-family: 'Times New Roman', sans-serif; background-color: #f4f4f4; color: #333; }
+            h1 { color: #1F78B4; text-align: center; }
+            h2 { color: #08306B; }
+            .logo { text-align: center; margin-bottom: 20px; }
+            .logo img { max-width: 200px; }
+            .container { padding: 20px; background-color: white; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); }
+            .data-source {
+              text-align: center;
+              font-size: 18px;
+              font-weight: bold;
+              margin-top: 30px;
+              padding: 15px;
+              background-color: #e0f3db;
+              border-radius: 5px;
+            }
+          </style>
+---
+
+<div class="logo">
+  <img src="gstat.png" alt="GSTAT Logo">
+</div>
+
+<div class="container">
+
+## Introduction
+This report presents an analysis of population trends in Saudi Arabia from 2010 to 2022 using interactive visualizations and geospatial data.
+
+## Data Overview
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+library(tidyverse)
+library(gtsummary)
+library(ggplot2)
+library(leaflet)
+library(sf)
+library(dplyr)
+library(tmap)
+library(gtExtras)
+
+# Load dataset
+data <- read.csv("gstat_pop_2010_2022.csv")
+data <- data %>% mutate(Year = as.factor(Year))
+```
+
+### Summary Statistics
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+data %>% gt_plt_summary()
+```
+
+## Population Trends
+
+### Population Comparison by Region (2010 vs. 2022)
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+library(ggplot2)
+library(plotly)
+
+data_filtered <- data %>% filter(Year %in% c("2010", "2022"))
+
+p <- ggplot(data_filtered, aes(x = Population, y = reorder(Region, Population), fill = Year)) +
+  geom_col(position = "dodge") +
+  facet_wrap(~Year, ncol = 2) +
+  labs(title = "Population Comparison by Region (2010 vs. 2022)",
+       x = "Population Count", y = "Region", fill = "Year") +
+  scale_x_continuous(labels = scales::comma) +
+  theme_minimal()
+
+ggplotly(p)
+```
+
+## Enhanced Geospatial Population Map
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+library(sf)
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(scales)
+
+suppressMessages(suppressWarnings({
+  saudi_map <- st_read("SAU-geo.json", quiet = TRUE)
+}))
+
+saudi_map <- saudi_map %>% rename(Region = NAME_1)
+
+data_percent <- read.csv("gstat_pop_2010_2022.csv")
+data_percent <- data_percent %>% mutate(Region = recode(Region, 
+  "Aseer" = "`Asir", "Northern Borders" = "Al Hudud ash Shamaliyah", "Al Madinah Al Munawwarah" = "Al Madinah", 
+  "Al Qaseem" = "Al Quassim", "Ar Riyadh" = "Ar Riyad", "Eastern Region" = "Ash Sharqiyah", "Hail" = "Ha'il", 
+  "Jazan" = "Jizan", "Makkah Al Mukarramah" = "Makkah"))
+
+collapsed_data <- data_percent %>% group_by(Year, Region) %>% summarise(Total_Population = sum(Population, na.rm = TRUE), .groups = "drop")
+merged_data <- left_join(saudi_map, collapsed_data, by = "Region")
+
+p <- ggplot(merged_data) +
+  geom_sf(aes(fill = Total_Population, frame = Year), color = "white", size = 0.2) +
+  scale_fill_gradient2(low = "#f7fbff", mid = "#6baed6", high = "#08306B", midpoint = median(merged_data$Total_Population, na.rm = TRUE), name = "Population",labels = comma) +
+  scale_x_continuous(labels = scales::comma) +
+  theme_minimal() +
+  labs(title = "Saudi Arabia Population by Year",
+       subtitle = "Population distribution across regions",
+       caption = "Data Source: GSTAT")
+
+ggplotly(p) %>% animation_opts(frame = 800, easing = "cubic-in-out")
+```
+
+## Conclusion
+This report provides a detailed look at Saudi Arabia’s population changes and trends over time. Interactive visualizations and geospatial analysis help in better understanding the distribution and growth patterns.
+
+<div class="data-source">
+  Data Source: <a href="https://www.stats.gov.sa/en/w/%D8%A7%D9%84%D8%B3%D9%83%D8%A7%D9%86-2010%D9%85-2022%D9%85-1" target="_blank">GSTAT Official Website</a>
+</div>
+
+</div>
