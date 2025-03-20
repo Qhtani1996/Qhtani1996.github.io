@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        /* General Styles */
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f4f4f4;
@@ -15,12 +16,14 @@
             margin: 0;
             padding: 0;
         }
+
         header {
             background: linear-gradient(to right, #4A90E2, #8E44AD);
             color: white;
             text-align: center;
             padding: 50px 20px;
         }
+
         .btn {
             display: inline-block;
             background: #8E44AD;
@@ -31,39 +34,54 @@
             transition: 0.3s;
             cursor: pointer;
         }
+
         .btn:hover, .btn.active {
             background: #4A90E2;
         }
+
         .projects {
             text-align: center;
             padding: 50px 20px;
         }
+
         .project {
             background: white;
             border-radius: 10px;
             padding: 20px;
             margin: 20px auto;
             width: 80%;
+            max-width: 800px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
+
         .project-section {
             display: none;
         }
+
         .active {
             display: block;
         }
+
         .selection-container {
             display: flex;
             justify-content: center;
             gap: 20px;
             margin-bottom: 20px;
         }
+
         footer {
             background: #333;
             color: white;
             text-align: center;
             padding: 20px;
             margin-top: 50px;
+        }
+
+        img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -82,7 +100,7 @@
             <button class="btn" onclick="showSection('automatic-reports')">Automatic Reports</button>
         </div>
 
-        <!-- RStudio Projects -->
+        <!-- RStudio Projects Section -->
         <div id="rstudio-projects" class="project-section active">
             <div class="project">
                 <h3>Government Coverage Map</h3>
@@ -117,25 +135,30 @@
                 <iframe src="./projects/life_expectancy_comapre.html" title="Life Expectancy Comparison"></iframe>
                 <a href="./projects/life_expectancy_comapre.html" class="btn">View Analysis</a>
             </div>
-            
-            <div class="project">
-    <h3>Bump Area Plot</h3>
-    <p>A visualization of IHME data trends over time.</p>
-    <img src="./projects/bumparea_plot copy.png" alt="Bump Area Plot" style="width: 100%; max-width: 600px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
-</div>
 
+            <div class="project">
+                <h3>Bump Area Plot</h3>
+                <p>A visualization of IHME data trends over time.</p>
+                <img src="./projects/bumparea_plot copy.png" alt="Bump Area Plot">
+            </div>
+
+            <div class="project">
+                <h3>GCC Heatmap</h3>
+                <p>Heatmap analysis of GCC data.</p>
+                <img src="./projects/heatmap_gcc_v3.png" alt="GCC Heatmap">
+            </div>
         </div>
 
-        <!-- Stata Projects -->
+        <!-- Stata Projects Section -->
         <div id="stata-projects" class="project-section">
             <p>Stata projects will be added soon.</p>
         </div>
 
-        <!-- Automatic Reports -->
+        <!-- Automatic Reports Section -->
         <div id="automatic-reports" class="project-section">
             <div class="project">
                 <h3>General Authority for Statistics Population Report</h3>
-                <p>Statistical analysis and visualization using Rstudio </p>
+                <p>Statistical analysis and visualization using RStudio.</p>
                 <a href="./projects/gstat_word_v2.docx" class="btn">Download GSTAT Report (Word)</a>
             </div>
         </div>
