@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        /* General Styles */
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f4f4f4;
@@ -15,12 +16,14 @@
             margin: 0;
             padding: 0;
         }
+
         header {
             background: linear-gradient(to right, #4A90E2, #8E44AD);
             color: white;
             text-align: center;
             padding: 50px 20px;
         }
+
         .btn {
             display: inline-block;
             background: #8E44AD;
@@ -31,13 +34,16 @@
             transition: 0.3s;
             cursor: pointer;
         }
+
         .btn:hover, .btn.active {
             background: #4A90E2;
         }
+
         .projects {
             text-align: center;
             padding: 50px 20px;
         }
+
         .project {
             background: white;
             border-radius: 10px;
@@ -47,18 +53,22 @@
             max-width: 800px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
+
         .project-section {
             display: none;
         }
+
         .active {
             display: block;
         }
+
         .selection-container {
             display: flex;
             justify-content: center;
             gap: 20px;
             margin-bottom: 20px;
         }
+
         footer {
             background: #333;
             color: white;
@@ -66,11 +76,79 @@
             padding: 20px;
             margin-top: 50px;
         }
+
         img {
             width: 100%;
             max-width: 600px;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* New styles for Shiny modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 1000px;
+            height: 80vh;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: white;
+            background: #8E44AD;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .shiny-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .preview-btn {
+            background: #4A90E2;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                height: 70vh;
+            }
+            .btn-container {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -92,6 +170,16 @@
         <!-- RStudio Projects Section -->
         <div id="rstudio-projects" class="project-section active">
             <div class="project">
+                <h3>Road Injury DALY Dashboard (GCC)</h3>
+                <p>Interactive dashboard showing Disability-Adjusted Life Years (DALYs) due to road injuries across GCC countries.</p>
+                <img src="./projects/dashboard-preview.png" alt="Dashboard Preview" style="cursor: pointer;" onclick="openShinyModal()">
+                <div class="btn-container">
+                    <a href="https://meshal96.shinyapps.io/road-injury-dashboard/" class="btn" target="_blank">Open Full Dashboard</a>
+                    <button class="btn preview-btn" onclick="openShinyModal()">Preview Dashboard</button>
+                </div>
+            </div>
+
+            <div class="project">
                 <h3>Government Coverage Map</h3>
                 <p>A visualization of government healthcare coverage.</p>
                 <iframe src="./projects/Government_Coverage_Map_upsated.html" title="Government Coverage Map"></iframe>
@@ -103,19 +191,6 @@
                 <p>A visualization of private healthcare coverage.</p>
                 <iframe src="./projects/Private_Coverage_Map_updated.html" title="Private Coverage Map"></iframe>
                 <a href="./projects/Private_Coverage_Map_updated.html" class="btn">View Full Map</a>
-            </div>
-
-            <div class="project">
-                <h3>Road Injury DALY Dashboard (GCC)</h3>
-                <p>Interactive dashboard showing DALYs due to road injuries across GCC countries.</p>
-                <iframe 
-                    src="https://meshal96.shinyapps.io/shiny_app/" 
-                    title="GCC DALY Dashboard" 
-                    width="100%" 
-                    height="600px" 
-                    style="border:none; border-radius:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-                </iframe>
-                <a href="https://meshal96.shinyapps.io/shiny_app/" class="btn" target="_blank">Open Dashboard</a>
             </div>
 
             <div class="project">
@@ -170,6 +245,16 @@
         </div>
     </section>
 
+    <!-- Shiny App Modal -->
+    <div id="shinyModal" class="modal">
+        <button class="close-btn" onclick="closeShinyModal()">×</button>
+        <div class="modal-content">
+            <iframe class="shiny-iframe" 
+                    src="https://meshal96.shinyapps.io/road-injury-dashboard/" 
+                    title="GCC DALY Dashboard"></iframe>
+        </div>
+    </div>
+
     <section class="contact" id="contact">
         <h2>Get in Touch</h2>
         <p>If you're interested in collaborating or have questions, feel free to reach out.</p>
@@ -182,15 +267,44 @@
 
     <script>
         function showSection(sectionId) {
+            // Hide all sections
             document.querySelectorAll('.project-section').forEach(section => {
                 section.classList.remove('active');
             });
+
+            // Show the selected section
             document.getElementById(sectionId).classList.add('active');
 
+            // Update button states
             document.querySelectorAll('.selection-container .btn').forEach(button => {
                 button.classList.remove('active');
             });
-            document.querySelector(`.selection-container .btn[onclick="showSection('${sectionId}')"]`).classList.add('active');
+            const activeButton = document.querySelector(`.selection-container .btn[onclick="showSection('${sectionId}')"]`);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+        }
+
+        // Shiny Modal Functions
+        function openShinyModal() {
+            document.getElementById('shinyModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeShinyModal() {
+            document.getElementById('shinyModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            // Reset the iframe to stop any running processes
+            const iframe = document.querySelector('.shiny-iframe');
+            iframe.src = iframe.src;
+        }
+        
+        // Close modal when clicking outside content
+        window.onclick = function(event) {
+            const modal = document.getElementById('shinyModal');
+            if (event.target == modal) {
+                closeShinyModal();
+            }
         }
     </script>
 </body>
