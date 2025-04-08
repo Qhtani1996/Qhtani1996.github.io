@@ -698,9 +698,155 @@
             <p>Data Analyst specializing in healthcare analytics, data visualization, and GIS mapping with a passion for transforming complex data into actionable insights.</p>
             <div class="cta-buttons">
                 <a href="#projects" class="btn">View Projects</a>
-                <a href="#contact" class="btn btn-outline">Get in
+                <a href="#contact" class="btn btn-outline">Get in Touch</a>
+            </div>
+        </div>
+    </section>
 
-                    <p>A visualization of IHME health data trends over time using a bump area plot, showing relative changes in key health indicators.</p>
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p>I'm a data analyst with a Master's in Public Health (MPH), focusing on using data-driven approaches to solve healthcare challenges. My expertise lies in transforming complex health data into meaningful visualizations and actionable insights.</p>
+                    <p>With experience in both public health research and healthcare analytics, I combine statistical rigor with creative visualization techniques to communicate findings effectively to diverse audiences.</p>
+                    
+                    <div class="skills">
+                        <h3>Skills & Tools</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag"><i class="fa-solid fa-chart-line"></i>Data Analysis</span>
+                            <span class="skill-tag"><i class="fa-solid fa-map-location-dot"></i>GIS Mapping</span>
+                            <span class="skill-tag"><i class="fa-solid fa-r-project"></i>R/RStudio</span>
+                            <span class="skill-tag"><i class="fa-solid fa-chart-simple"></i>Stata</span>
+                            <span class="skill-tag"><i class="fa-solid fa-globe"></i>Spatial Analysis</span>
+                            <span class="skill-tag"><i class="fa-solid fa-file-excel"></i>Excel</span>
+                            <span class="skill-tag"><i class="fa-solid fa-hospital"></i>Healthcare Analytics</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="./projects/Meshal.jpg" alt="Meshal AlQahtani" onerror="this.src='/api/placeholder/400/400'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2>My Projects</h2>
+            <p>Explore my portfolio of data analysis and visualization projects</p>
+            
+            <div class="selection-container">
+                <button class="btn active" onclick="showSection('rstudio-projects')">RStudio Projects</button>
+                <button class="btn" onclick="showSection('stata-projects')">Stata 18 Projects</button>
+                <button class="btn" onclick="showSection('automatic-reports')">Automatic Reports</button>
+            </div>
+            
+            <!-- RStudio Projects Section -->
+            <div id="rstudio-projects" class="project-section active">
+                <!-- Featured Project -->
+                <div class="featured-project">
+                    <span class="featured-tag">Featured Project</span>
+                    <div class="featured-content">
+                        <div class="featured-image project-image">
+                            <img src="./projects/dashboard_shiny.png" alt="Dashboard Preview" style="cursor: pointer;" onclick="openShinyModal()" onerror="this.src='/api/placeholder/800/500'">
+                        </div>
+                        <div class="featured-details">
+                            <h3>Road Injury DALY Dashboard (GCC)</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">R Shiny</span>
+                                <span class="project-tag">Interactive</span>
+                                <span class="project-tag">GCC Health Data</span>
+                            </div>
+                            <p>An interactive dashboard visualizing Disability-Adjusted Life Years (DALYs) due to road injuries across Gulf Cooperation Council (GCC) countries. This dashboard allows users to explore trends, compare countries, and analyze the impact of road injuries on public health across the region.</p>
+                            <div class="btn-container">
+                                <a href="https://meshal96.shinyapps.io/shiny_app/" class="btn" target="_blank">Open Full Dashboard</a>
+                                <button class="btn preview-btn" onclick="openShinyModal()">Quick Preview</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project Grid -->
+                <div class="project-grid">
+                    <div class="project">
+                        <div class="project-image">
+                            <iframe src="./projects/Government_Coverage_Map_upsated.html" title="Government Coverage Map"></iframe>
+                        </div>
+                        <div class="project-details">
+                            <h3>Government Coverage Map</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">GIS</span>
+                                <span class="project-tag">Healthcare</span>
+                                <span class="project-tag">Interactive Map</span>
+                            </div>
+                            <p>A visualization of government healthcare coverage across regions, highlighting access disparities and service distribution.</p>
+                            <a href="./projects/Government_Coverage_Map_upsated.html" class="btn btn-sm" target="_blank">View Full Map</a>
+                        </div>
+                    </div>
+                    
+                    <div class="project">
+                        <div class="project-image">
+                            <iframe src="./projects/Private_Coverage_Map_updated.html" title="Private Coverage Map"></iframe>
+                        </div>
+                        <div class="project-details">
+                            <h3>Private Coverage Map</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">GIS</span>
+                                <span class="project-tag">Private Sector</span>
+                                <span class="project-tag">Interactive Map</span>
+                            </div>
+                            <p>An interactive map showing the distribution and coverage of private healthcare services, allowing for comparison with public sector coverage.</p>
+                            <a href="./projects/Private_Coverage_Map_updated.html" class="btn btn-sm" target="_blank">View Full Map</a>
+                        </div>
+                    </div>
+                    
+                    <div class="project">
+                        <div class="project-image">
+                            <img src="/api/placeholder/400/250" alt="Drug Intoxications Report Cover">
+                        </div>
+                        <div class="project-details">
+                            <h3>Drug Intoxications in Saudi Arabia</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">Research</span>
+                                <span class="project-tag">Public Health</span>
+                                <span class="project-tag">PDF Report</span>
+                            </div>
+                            <p>Comprehensive analysis of drug intoxication cases in Saudi Arabia, including demographic patterns, regional variations, and policy implications.</p>
+                            <a href="./Drug_Intoxications_SA.pdf" class="btn btn-sm" target="_blank">View PDF Report</a>
+                        </div>
+                    </div>
+                    
+                    <div class="project">
+                        <div class="project-image">
+                            <iframe src="./projects/life_expectancy_comapre.html" title="Life Expectancy Comparison"></iframe>
+                        </div>
+                        <div class="project-details">
+                            <h3>Life Expectancy Comparison</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">G20</span>
+                                <span class="project-tag">Comparison</span>
+                                <span class="project-tag">Time Series</span>
+                            </div>
+                            <p>Comparative analysis of life expectancy changes across G20 countries between 2000 and 2020, highlighting global health disparities.</p>
+                            <a href="./projects/life_expectancy_comapre.html" class="btn btn-sm" target="_blank">View Analysis</a>
+                        </div>
+                    </div>
+                    
+                    <div class="project">
+                        <div class="project-image">
+                            <img src="./projects/bumparea_plot copy.png" alt="Bump Area Plot">
+                        </div>
+                        <div class="project-details">
+                            <h3>Bump Area Plot</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">Data Viz</span>
+                                <span class="project-tag">IHME Data</span>
+                                <span class="project-tag">Trends</span>
+                            </div>
+                            <p>A visualization of IHME health data trends over time using a bump area plot, showing relative changes in key health indicators.</p>
                             <a href="./projects/bumparea_plot copy.png" class="btn btn-sm" download>Download High-Res</a>
                         </div>
                     </div>
