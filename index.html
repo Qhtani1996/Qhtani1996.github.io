@@ -771,7 +771,24 @@
                 
                 <!-- Project Grid -->
                 <div class="project-grid">
-                    <!-- NEW PROJECT: IHME Injury Prevalence Visualization -->
+                    <!-- NEW PROJECT: Injury Burden by Age Group -->
+                    <div class="project">
+                        <div class="project-image">
+                            <img src="./projects/injury_burden_by_age.png" alt="Injury Burden by Age Group" onerror="this.src='/api/placeholder/400/250'">
+                        </div>
+                        <div class="project-details">
+                            <h3>Injury Burden by Age Group in Saudi Arabia</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">R</span>
+                                <span class="project-tag">IHME GBD Data</span>
+                                <span class="project-tag">Waffle Charts</span>
+                            </div>
+                            <p>Analysis of injury burden across different age groups in Saudi Arabia using waffle charts, where each square represents 1% of the total. The visualization reveals how unintentional injuries, motor vehicle injuries, and self-harm patterns vary by age.</p>
+                            <a href="./projects/injury_burden_by_age.png" class="btn btn-sm" download>Download High-Res</a>
+                        </div>
+                    </div>
+                    
+                    <!-- IHME Injury Prevalence Visualization -->
                     <div class="project">
                         <div class="project-image">
                             <img src="./projects/ihme_injury_prevalence_viz.png" alt="IHME Injury Prevalence Visualization" onerror="this.src='/api/placeholder/400/250'">
@@ -863,299 +880,887 @@
                                 <span class="project-tag">IHME Data</span>
                                 <span class="project-tag">Trends</span>
                             </div>
-                            <p>A visualization of IHME health data trends over time using a bump area plot, showing relative changes in key health indicators.</p>
-                            <a href="./projects/bumparea_plot copy.png" class="btn btn-sm" download>Download High-Res</a>
+                            <p>A visualization of IHME health data trends over time using a bump area plot, showing relative changes in key health indicators
+                                <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Meshal AlQahtani - Data Analyst Portfolio showcasing data visualization and GIS mapping projects">
+    <title>Meshal AlQahtani | Data Analyst Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        h1, h2, h3, h4 {
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 600;
+            color: #4A90E2;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #8E44AD;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            transition: all 0.3s ease;
+            background-color: #333;
+        }
+
+        /* Header / Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #4A90E2, #8E44AD);
+            color: white;
+            text-align: center;
+            padding: 150px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path fill="rgba(255, 255, 255, 0.05)" d="M31.6,-46.5C38.9,-35.5,41,-22.8,46.5,-9.7C51.9,3.5,60.8,17.2,58.9,29.7C57,42.3,44.3,53.7,30.5,57.3C16.6,60.9,1.5,56.7,-10.8,51.3C-23.1,45.9,-32.5,39.2,-43.9,29.7C-55.3,20.1,-68.7,7.6,-67.9,-4.5C-67.1,-16.6,-52.2,-28.3,-38.9,-39.2C-25.5,-50,-12.8,-60,0.9,-61.1C14.6,-62.3,24.2,-57.5,31.6,-46.5Z" transform="translate(100 100)"></path></svg>') no-repeat center center;
+            background-size: 70%;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background: #8E44AD;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-weight: 500;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(142, 68, 173, 0.3);
+        }
+
+        .btn:hover, .btn.active {
+            background: #4A90E2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(74, 144, 226, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* About Section */
+        .about {
+            background-color: white;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .skills {
+            margin-top: 30px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .skill-tag {
+            background: #f0f0f0;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-tag i {
+            color: #4A90E2;
+        }
+
+        /* Projects */
+        .projects {
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+
+        .projects h2 {
+            margin-bottom: 50px;
+        }
+
+        .selection-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .project-section {
+            display: none;
+        }
+
+        .project-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .project {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-image img, .project-image iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: none;
+        }
+
+        .project-details {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .project-details h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .project-details p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .project-tag {
+            font-size: 12px;
+            background: #f0f0f0;
+            padding: 4px 10px;
+            border-radius: 50px;
+            color: #666;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        /* Featured Project */
+        .featured-project {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+
+        .featured-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .featured-image {
+            height: 350px;
+        }
+
+        .featured-details {
+            padding: 30px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-tag {
+            display: inline-block;
+            background: #f0e6ff;
+            color: #8E44AD;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            overflow: auto;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            background: white;
+            border-radius: 15px;
+            margin: 5vh auto;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            animation: modalOpen 0.4s ease;
+        }
+        
+        @keyframes modalOpen {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            transition: all 0.2s ease;
+        }
+        
+        .close-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: scale(1.1);
+        }
+        
+        .shiny-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #4A90E2, #8E44AD);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .contact h2, .contact p {
+            color: white;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-method {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .contact-icon i {
+            font-size: 24px;
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: white;
+            color: #8E44AD;
+        }
+
+        .social-link i {
+            font-size: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: #999;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            font-size: 14px;
+        }
+
+        /* Back To Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background: #8E44AD;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #4A90E2;
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                order: -1;
+                margin-bottom: 30px;
+            }
+            
+            .featured-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: -100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 30px 0;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                transition: all 0.5s ease;
+            }
+            
+            .nav-links.active {
+                top: 70px;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+            
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-project {
+                flex-direction: column;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .cta-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .selection-container {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .selection-container .btn {
+                width: 100%;
+            }
+            
+            .modal-content {
+                width: 95%;
+                height: 70vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Meshal AlQahtani</a>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="container hero-content">
+            <h1>Meshal AlQahtani, MPH</h1>
+            <p>Data Analyst specializing in healthcare analytics, data visualization, and GIS mapping with a passion for transforming complex data into actionable insights.</p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn">View Projects</a>
+                <a href="#contact" class="btn btn-outline">Get in Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p>I'm a data analyst with a Master's in Public Health (MPH), focusing on using data-driven approaches to solve healthcare challenges. My expertise lies in transforming complex health data into meaningful visualizations and actionable insights.</p>
+                    <p>With experience in both public health research and healthcare analytics, I combine statistical rigor with creative visualization techniques to communicate findings effectively to diverse audiences.</p>
+                    
+                    <div class="skills">
+                        <h3>Skills & Tools</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag"><i class="fa-solid fa-chart-line"></i>Data Analysis</span>
+                            <span class="skill-tag"><i class="fa-solid fa-map-location-dot"></i>GIS Mapping</span>
+                            <span class="skill-tag"><i class="fa-solid fa-r-project"></i>R/RStudio</span>
+                            <span class="skill-tag"><i class="fa-solid fa-chart-simple"></i>Stata</span>
+                            <span class="skill-tag"><i class="fa-solid fa-globe"></i>Spatial Analysis</span>
+                            <span class="skill-tag"><i class="fa-solid fa-file-excel"></i>Excel</span>
+                            <span class="skill-tag"><i class="fa-solid fa-hospital"></i>Healthcare Analytics</span>
                         </div>
                     </div>
-                    
-                    <div class="project">
-                        <div class="project-image">
-                            <img src="./projects/heatmap_gcc_v3.png" alt="GCC Heatmap">
-                        </div>
-                        <div class="project-details">
-                            <h3>GCC Heatmap Analysis</h3>
-                            <div class="project-tags">
-                                <span class="project-tag">GCC</span>
-                                <span class="project-tag">Heatmap</span>
-                                <span class="project-tag">Comparative</span>
-                            </div>
-                            <p>Heatmap visualization comparing key health metrics across Gulf Cooperation Council countries, highlighting regional patterns.</p>
-                            <a href="./projects/heatmap_gcc_v3.png" class="btn btn-sm" download>Download Image</a>
-                        </div>
-                    </div>
-                    
-                    <div class="project">
-                        <div class="project-image">
-                            <img src="./projects/saudi_arabia_deaths2.png" alt="Saudi Arabia Mortality Trends">
-                        </div>
-                        <div class="project-details">
-                            <h3>Mortality Trends in Saudi Arabia (1980-2020)</h3>
-                            <div class="project-tags">
-                                <span class="project-tag">Time Series</span>
-                                <span class="project-tag">IHME Data</span>
-                                <span class="project-tag">Mortality</span>
-                            </div>
-                            <p>Analysis of age distribution of deaths over time in Saudi Arabia using IHME data, showing demographic shifts and public health improvements.</p>
-                            <a href="./projects/saudi_arabia_deaths2.png" class="btn btn-sm" download>Download High-Res</a>
-                        </div>
+                </div>
+                <div class="about-image">
+                    <img src="./projects/Meshal.jpg" alt="Meshal AlQahtani" onerror="this.src='/api/placeholder/400/400'">
                 </div>
             </div>
-            <div class="project">
-    <div class="project-image">
-        <img src="./projects/injury_burden_by_age.png" alt="Injury Burden by Age Group" onerror="this.src='/api/placeholder/400/250'">
-    </div>
-    <div class="project-details">
-        <h3>Injury Burden by Age Group in Saudi Arabia</h3>
-        <div class="project-tags">
-            <span class="project-tag">R</span>
-            <span class="project-tag">IHME GBD Data</span>
-            <span class="project-tag">Waffle Charts</span>
         </div>
-        <p>Analysis of injury burden across different age groups in Saudi Arabia using waffle charts, where each square represents 1% of the total. The visualization shows the distribution of various injury types and highlights how patterns change with age.</p>
-        <a href="./projects/injury_burden_by_age.png" class="btn btn-sm" download>Download High-Res</a>
-    </div>
-</div>
-            <!-- Stata Projects Section -->
-            <div id="stata-projects" class="project-section">
-                <div class="project-grid">
-                    <div class="project">
-                        <div class="project-image">
-                            <img src="./projects/WISQARS National Violent Death Reporting System.png" alt="WISQARS Treemap">
-                        </div>
-                        <div class="project-details">
-                            <h3>WISQARS National Violent Death Reporting System</h3>
-                            <div class="project-tags">
-                                <span class="project-tag">Stata 18</span>
-                                <span class="project-tag">Treemap</span>
-                                <span class="project-tag">Mortality</span>
-                            </div>
-                            <p>Treemap visualization of violent death data using Stata 18, providing insights into patterns and causes of violent deaths from the WISQARS database.</p>
-                            <a href="./projects/WISQARS National Violent Death Reporting System.png" class="btn btn-sm" download>Download High-Res</a>
-                        </div>
-                    </div>
-                    <!-- Placeholder for future Stata projects -->
-                    <div class="project">
-                        <div class="project-image">
-                            <img src="/api/placeholder/400/250" alt="Statistical Analysis">
-                        </div>
-                        <div class="project-details">
-                            <h3>Statistical Analysis Templates</h3>
-                            <div class="project-tags">
-                                <span class="project-tag">Stata 18</span>
-                                <span class="project-tag">Statistics</span>
-                                <span class="project-tag">Templates</span>
-                            </div>
-                            <p>A collection of reusable Stata 18 templates for common statistical analyses in healthcare research.</p>
-                            <span class="btn btn-sm" style="background-color: #ccc; cursor: default;">Coming Soon</span>
-                        </div>
-                    </div>
-                </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2>My Projects</h2>
+            <p>Explore my portfolio of data analysis and visualization projects</p>
+            
+            <div class="selection-container">
+                <button class="btn active" onclick="showSection('rstudio-projects')">RStudio Projects</button>
+                <button class="btn" onclick="showSection('stata-projects')">Stata 18 Projects</button>
+                <button class="btn" onclick="showSection('automatic-reports')">Automatic Reports</button>
             </div>
             
-            <!-- Automatic Reports Section -->
-            <div id="automatic-reports" class="project-section">
-                <div class="project-grid">
-                    <div class="project">
-                        <div class="project-image">
-                            <img src="/api/placeholder/400/250" alt="GSTAT Report">
+            <!-- RStudio Projects Section -->
+            <div id="rstudio-projects" class="project-section active">
+                <!-- Featured Project -->
+                <div class="featured-project">
+                    <span class="featured-tag">Featured Project</span>
+                    <div class="featured-content">
+                        <div class="featured-image project-image">
+                            <img src="./projects/dashboard_shiny.png" alt="Dashboard Preview" style="cursor: pointer;" onclick="openShinyModal()" onerror="this.src='/api/placeholder/800/500'">
                         </div>
-                        <div class="project-details">
-                            <h3>General Authority for Statistics Population Report</h3>
-                            <div class="project-tags">
-                                <span class="project-tag">R Markdown</span>
-                                <span class="project-tag">Automated</span>
-                                <span class="project-tag">Demographics</span>
-                            </div>
-                            <p>Automated statistical analysis and visualization of population data from the General Authority for Statistics, generated using RStudio and R Markdown.</p>
-                            <a href="./projects/gstat_word_v2.docx" class="btn btn-sm" download>Download Report (Word)</a>
-                        </div>
-                    </div>
-                    <!-- Placeholder for future automatic reports -->
-                    <div class="project">
-                        <div class="project-image">
-                            <img src="/api/placeholder/400/250" alt="Dashboard Template">
-                        </div>
-                        <div class="project-details">
-                            <h3>Automated Health Dashboard Templates</h3>
+                        <div class="featured-details">
+                            <h3>Road Injury DALY Dashboard (GCC)</h3>
                             <div class="project-tags">
                                 <span class="project-tag">R Shiny</span>
-                                <span class="project-tag">Templates</span>
-                                <span class="project-tag">Healthcare</span>
+                                <span class="project-tag">Interactive</span>
+                                <span class="project-tag">GCC Health Data</span>
                             </div>
-                            <p>Collection of customizable R Shiny templates for creating automated health data dashboards.</p>
-                            <span class="btn btn-sm" style="background-color: #ccc; cursor: default;">Coming Soon</span>
+                            <p>An interactive dashboard visualizing Disability-Adjusted Life Years (DALYs) due to road injuries across Gulf Cooperation Council (GCC) countries. This dashboard allows users to explore trends, compare countries, and analyze the impact of road injuries on public health across the region.</p>
+                            <div class="btn-container">
+                                <a href="https://meshal96.shinyapps.io/shiny_app/" class="btn" target="_blank">Open Full Dashboard</a>
+                                <button class="btn preview-btn" onclick="openShinyModal()">Quick Preview</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Shiny App Modal -->
-    <div id="shinyModal" class="modal">
-        <button class="close-btn" onclick="closeShinyModal()">×</button>
-        <div class="modal-content">
-            <iframe class="shiny-iframe" 
-                    src="https://meshal96.shinyapps.io/shiny_app/" 
-                    title="GCC DALY Dashboard"></iframe>
-        </div>
-    </div>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2>Let's Connect</h2>
-            <p>Interested in collaborating or have questions about my work?</p>
-            
-            <div class="contact-info">
-                <div class="contact-method">
-                    <div class="contact-icon">
-                        <i class="fa-solid fa-envelope"></i>
+                
+                <!-- Project Grid -->
+                <div class="project-grid">
+                    <!-- NEW PROJECT: Injury Burden by Age Group -->
+                    <div class="project">
+                        <div class="project-image">
+                            <img src="./projects/injury_burden_by_age.png" alt="Injury Burden by Age Group" onerror="this.src='/api/placeholder/400/250'">
+                        </div>
+                        <div class="project-details">
+                            <h3>Injury Burden by Age Group in Saudi Arabia</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">R</span>
+                                <span class="project-tag">IHME GBD Data</span>
+                                <span class="project-tag">Waffle Charts</span>
+                            </div>
+                            <p>Analysis of injury burden across different age groups in Saudi Arabia using waffle charts, where each square represents 1% of the total. The visualization reveals how unintentional injuries, motor vehicle injuries, and self-harm patterns vary by age.</p>
+                            <a href="./projects/injury_burden_by_age.png" class="btn btn-sm" download>Download High-Res</a>
+                        </div>
                     </div>
-                    <h3>Email</h3>
-                    <a href="mailto:alqahtanimeshal96@gmail.com" style="color: white;">alqahtanimeshal96@gmail.com</a>
-                </div>
-                
-                <div class="contact-method">
-                    <div class="contact-icon">
-                        <i class="fa-solid fa-location-dot"></i>
+                    
+                    <!-- IHME Injury Prevalence Visualization -->
+                    <div class="project">
+                        <div class="project-image">
+                            <img src="./projects/ihme_injury_prevalence_viz.png" alt="IHME Injury Prevalence Visualization" onerror="this.src='/api/placeholder/400/250'">
+                        </div>
+                        <div class="project-details">
+                            <h3>Injury Prevalence in Saudi Arabia by Age Group</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">R</span>
+                                <span class="project-tag">IHME GBD Data</span>
+                                <span class="project-tag">Age Analysis</span>
+                            </div>
+                            <p>Analysis of injury prevalence rates across different age groups in Saudi Arabia, showing how each group compares to the national average. This visualization highlights which age groups are most vulnerable to injuries.</p>
+                            <a href="./projects/ihme_injury_prevalence_viz.png" class="btn btn-sm" download>Download High-Res</a>
+                        </div>
                     </div>
-                    <h3>Location</h3>
-                    <p>Riyadh, Saudi Arabia</p>
-                </div>
-                
-                <div class="contact-method">
-                    <div class="contact-icon">
-                        <i class="fa-solid fa-user-graduate"></i>
+                    
+                    <div class="project">
+                        <div class="project-image">
+                            <iframe src="./projects/Government_Coverage_Map_upsated.html" title="Government Coverage Map"></iframe>
+                        </div>
+                        <div class="project-details">
+                            <h3>Government Coverage Map</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">GIS</span>
+                                <span class="project-tag">Healthcare</span>
+                                <span class="project-tag">Interactive Map</span>
+                            </div>
+                            <p>A visualization of government healthcare coverage across regions, highlighting access disparities and service distribution.</p>
+                            <a href="./projects/Government_Coverage_Map_upsated.html" class="btn btn-sm" target="_blank">View Full Map</a>
+                        </div>
                     </div>
-                    <h3>Education</h3>
-                    <p>Master of Public Health (MPH)</p>
-                </div>
-            </div>
-            
-            <a href="mailto:alqahtanimeshal96@gmail.com" class="btn">Get in Touch</a>
-            
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/meshal-al-qahtani-mph-1946b71a3" class="social-link" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="#" class="social-link"><i class="fa-brands fa-github"></i></a>
-                <a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-links">
-                <a href="#hero">Home</a>
-                <a href="#about">About</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
-            </div>
-            <p class="copyright">&copy; 2025 - Designed & developed by Meshal AlQahtani</p>
-        </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <a href="#" class="back-to-top" id="backToTop">
-        <i class="fa-solid fa-arrow-up"></i>
-    </a>
-
-    <script>
-        // Mobile Navigation
-        const hamburger = document.querySelector(".hamburger");
-        const navLinks = document.querySelector(".nav-links");
-        
-        hamburger.addEventListener("click", () => {
-            hamburger.classList.toggle("active");
-            navLinks.classList.toggle("active");
-        });
-        
-        // Close menu when clicking a link
-        document.querySelectorAll(".nav-links a").forEach(link => {
-            link.addEventListener("click", () => {
-                hamburger.classList.remove("active");
-                navLinks.classList.remove("active");
-            });
-        });
-        
-        // Project Section Tabs
-        function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('.project-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            // Show the selected section
-            document.getElementById(sectionId).classList.add('active');
-            // Update button states
-            document.querySelectorAll('.selection-container .btn').forEach(button => {
-                button.classList.remove('active');
-            });
-            const activeButton = document.querySelector(`.selection-container .btn[onclick="showSection('${sectionId}')"]`);
-            if (activeButton) {
-                activeButton.classList.add('active');
-            }
-        }
-        
-        // Navbar Scroll Effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-                navbar.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
-            } else {
-                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-            }
-            
-            // Back to top button visibility
-            const backToTop = document.getElementById('backToTop');
-            if (window.scrollY > 300) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // Shiny Modal Functions
-        function openShinyModal() {
-            document.getElementById('shinyModal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeShinyModal() {
-            document.getElementById('shinyModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-            // Reset the iframe to stop any running processes
-            const iframe = document.querySelector('.shiny-iframe');
-            iframe.src = iframe.src;
-        }
-        
-        // Close modal when clicking outside content
-        window.onclick = function(event) {
-            const modal = document.getElementById('shinyModal');
-            if (event.target == modal) {
-                closeShinyModal();
-            }
-        }
-    </script>
-</body>
-</html>
+                    
+                    <div class="project">
+                        <div class="project-image">
+                            <iframe src="./projects/Private_Coverage_Map_updated.html" title="Private Coverage Map"></iframe>
+                        </div>
+                        <div class="project-details">
+                            <h3>Private Coverage Map</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">GIS</span>
+                                <span class="project-tag">Private Sector</span>
+                                <span class="project-tag">Interactive Map</span>
+                            </div>
+                            <p>An interactive map showing the distribution and coverage of private healthcare services, allowing for comparison with public sector coverage.</p>
+                            <a href="./projects/Private_Coverage_Map_updated.html" class="btn btn-sm" target="_blank">View Full Map</a>
+                        </div>
+                    </div>
+                    
+                    <div class="project">
+                        <div class="project-image">
+                            <img src="/api/placeholder/400/250" alt="Drug Intoxications Report Cover">
+                        </div>
+                        <div class="project-details">
+                            <h3>Drug Intoxications in Saudi Arabia</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">Research</span>
+                                <span class="project-tag">Public Health</span>
+                                <span class="project-tag">PDF Report</span>
+                            </div>
+                            <p>Comprehensive analysis of drug intoxication cases in Saudi Arabia, including demographic patterns, regional variations, and policy implications.</p>
+                            <a href="./Drug_Intoxications_SA.pdf" class="btn btn-sm" target="_blank">View PDF Report</a>
+                        </div>
+                    </div>
+                    
+                    <div class="project">
+                        <div class="project-image">
+                            <iframe src="./projects/life_expectancy_comapre.html" title="Life Expectancy Comparison"></iframe>
+                        </div>
+                        <div class="project-details">
+                            <h3>Life Expectancy Comparison</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">G20</span>
+                                <span class="project-tag">Comparison</span>
+                                <span class="project-tag">Time Series</span>
+                            </div>
+                            <p>Comparative analysis of life expectancy changes across G20 countries between 2000 and 2020, highlighting global health disparities.</p>
+                            <a href="./projects/life_expectancy_comapre.html" class="btn btn-sm" target="_blank">View Analysis</a>
+                        </div>
+                    </div>
+                    
+                    <div class="project">
+                        <div class="project-image">
+                            <img src="./projects/bumparea_plot copy.png" alt="Bump Area Plot">
+                        </div>
+                        <div class="project-details">
+                            <h3>Bump Area Plot</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">Data Viz</span>
+                                <span class="project-tag">IHME Data</span>
+                                <span class="project-tag">Trends</span>
+                            </div>
+                            <p>A visualization of IHME health data trends over time using a bump area plot, showing relative changes in key health indicators
