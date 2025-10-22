@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCC Countries Mortality Analysis 2012-2023</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #09C992 0%, #0E91A1 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            margin-bottom: 5px;
+        }
+        
+        .header .subtitle {
+            font-size: 0.95em;
+            opacity: 0.85;
+            margin-top: 10px;
+        }
+        
+        .key-insights {
+            background: #f8f9fa;
+            padding: 25px 30px;
+            border-bottom: 3px solid #09C992;
+        }
+        
+        .key-insights h2 {
+            color: #0E91A1;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .insight-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #09C992;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .insight-card.negative {
+            border-left-color: #EF7356;
+        }
+        
+        .insight-card h3 {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .insight-card p {
+            font-size: 1.3em;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .plot-section {
+            padding: 30px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .plot-section:last-child {
+            border-bottom: none;
+        }
+        
+        .plot-section h2 {
+            color: #0E91A1;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .plot-section h2::before {
+            content: "";
+            width: 4px;
+            height: 24px;
+            background: #09C992;
+            border-radius: 2px;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 8px;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+            opacity: 0.9;
+        }
+        
+        .footer a {
+            color: #09C992;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .plot-section {
+                padding: 20px;
+            }
+            
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            iframe {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>GCC Countries Mortality Analysis</h1>
+            <p>Age-Standardized Death Rates (2012-2023)</p>
+            <p class="subtitle">Data Source: IHME Global Burden of Disease Study 2023</p>
+        </div>
+        
+        <!-- Key Insights -->
+        <div class="key-insights">
+            <h2>📊 Key Findings</h2>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <h3>Lowest Death Rate</h3>
+                    <p>Kuwait (387 per 100k)</p>
+                </div>
+                <div class="insight-card">
+                    <h3>Top Cause in 2023</h3>
+                    <p>Cardiovascular Diseases</p>
+                </div>
+                <div class="insight-card">
+                    <h3>Biggest Improvement</h3>
+                    <p>↓ 67.1 Cardiovascular</p>
+                </div>
+                <div class="insight-card negative">
+                    <h3>Rising Concern</h3>
+                    <p>↑ 2.1 Neurological</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Plot 1 -->
+        <div class="plot-section">
+            <h2>Top Causes of Death</h2>
+            <iframe src="dashboard_plot1.html"></iframe>
+        </div>
+        
+        <!-- Plot 2 -->
+        <div class="plot-section">
+            <h2>Changes Over Time</h2>
+            <iframe src="dashboard_plot2.html"></iframe>
+        </div>
+        
+        <!-- Plot 3 -->
+        <div class="plot-section">
+            <h2>Country Comparisons</h2>
+            <iframe src="dashboard_plot3.html"></iframe>
+        </div>
+        
+        <!-- Plot 4 -->
+        <div class="plot-section">
+            <h2>Regional Overview</h2>
+            <iframe src="dashboard_plot4.html"></iframe>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>Created with R, Plotly, and ❤️</p>
+            <p>Data Analysis by <strong>Your Name</strong></p>
+            <p>Connect with me on <a href="https://www.linkedin.com/in/yourprofile" target="_blank">LinkedIn</a></p>
+        </div>
+    </div>
+</body>
+</html>
+
