@@ -3,361 +3,557 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="GCC Countries Mortality Analysis - Interactive Dashboard">
-    <title>GCC Mortality Analysis | Meshal AlQahtani</title>
+    <meta name="description" content="Meshal AlQahtani - MPH, Data Analyst & Public Health Researcher. Portfolio showcasing R, Stata, and data visualization projects.">
+    <meta name="keywords" content="Meshal AlQahtani, MPH, Data Analysis, R Programming, Stata, Public Health, Data Visualization, Health Analytics">
+    <meta name="author" content="Meshal AlQahtani">
+    <title>Meshal AlQahtani | MPH Data Analyst & Public Health Researcher</title>
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #8E44AD;
+            --accent-color: #E74C3C;
+            --dark-bg: #1a1a2e;
+            --light-bg: #f5f7fa;
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+            --card-bg: #ffffff;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f5f7fa;
-            color: #333;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
-            min-height: 100vh;
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+            overflow-x: hidden;
         }
         
-        /* Header */
-        .dashboard-header {
-            background: linear-gradient(135deg, #4A90E2 0%, #8E44AD 100%);
-            color: white;
-            padding: 30px 20px;
-            position: relative;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
         }
         
-        .header-content {
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .nav-container {
             max-width: 1400px;
             margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
-        .back-button {
-            display: inline-flex;
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
             align-items: center;
-            gap: 8px;
-            color: white;
+        }
+        
+        .nav-link {
+            color: var(--text-dark);
             text-decoration: none;
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 25px;
             font-weight: 500;
             transition: all 0.3s ease;
-            margin-bottom: 20px;
-            font-size: 14px;
+            position: relative;
         }
         
-        .back-button:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateX(-3px);
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease;
         }
         
-        .header-title {
-            text-align: center;
+        .nav-link:hover::after {
+            width: 100%;
         }
         
-        .header-title h1 {
-            font-size: 2.5em;
-            font-weight: 700;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
         }
         
-        .header-title .subtitle {
-            font-size: 1.1em;
-            opacity: 0.95;
-            font-weight: 400;
+        .nav-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-dark);
+            margin: 3px 0;
+            transition: 0.3s;
         }
         
-        .header-title .data-source {
-            font-size: 0.9em;
-            opacity: 0.85;
-            margin-top: 5px;
-            font-weight: 300;
-        }
-        
-        /* Main Container */
-        .main-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Key Insights Section */
-        .insights-section {
-            background: white;
-            margin: 30px auto;
-            padding: 40px 30px;
-            border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-        }
-        
-        .insights-title {
-            text-align: center;
-            font-size: 2em;
-            color: #333;
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-        
-        .insights-title i {
-            color: #4A90E2;
-            margin-right: 10px;
-        }
-        
-        .insights-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-        
-        .insight-card {
-            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             position: relative;
             overflow: hidden;
+            padding: 2rem;
+            margin-top: 70px;
         }
         
-        .insight-card::before {
+        .hero::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #4A90E2, #8E44AD);
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
         }
         
-        .insight-card.improvement::before {
-            background: linear-gradient(90deg, #10b981, #059669);
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            color: white;
+            z-index: 1;
+            position: relative;
         }
         
-        .insight-card.concern::before {
-            background: linear-gradient(90deg, #ef4444, #dc2626);
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
         }
         
-        .insight-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            border-color: #4A90E2;
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            animation: fadeInUp 1s ease 0.2s both;
         }
         
-        .insight-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #4A90E2, #8E44AD);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease 0.4s both;
         }
         
-        .insight-card.improvement .insight-icon {
-            background: linear-gradient(135deg, #10b981, #059669);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .insight-card.concern .insight-icon {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .insight-label {
-            font-size: 0.85em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #666;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        
-        .insight-value {
-            font-size: 1.8em;
-            font-weight: 700;
-            color: #333;
-            line-height: 1.2;
-        }
-        
-        /* Visualization Sections */
-        .viz-section {
-            background: white;
-            margin: 30px auto;
-            padding: 40px 30px;
-            border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-        }
-        
-        .viz-header {
+        .hero-buttons {
             display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #f0f0f0;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.6s both;
         }
         
-        .viz-icon {
-            font-size: 2em;
-            color: #4A90E2;
-        }
-        
-        .viz-title {
-            font-size: 1.8em;
-            color: #333;
-            font-weight: 600;
-            margin: 0;
-        }
-        
-        .viz-container {
-            width: 100%;
-            background: #fafafa;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
-        }
-        
-        .viz-container iframe {
-            width: 100%;
-            height: 650px;
+        .btn {
+            padding: 1rem 2.5rem;
             border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: var(--primary-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-image {
+            position: relative;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 15px;
+            color: white;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
             display: block;
         }
         
-        /* Footer */
-        .dashboard-footer {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 40px 20px;
-            margin-top: 50px;
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
         }
         
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .skill-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
             text-align: center;
         }
         
-        .footer-links {
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .skill-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .skill-description {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* Projects Section */
+        .projects-filter {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-bottom: 20px;
+            gap: 1rem;
+            margin-bottom: 3rem;
             flex-wrap: wrap;
         }
         
-        .footer-links a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: color 0.3s ease;
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            border: 2px solid var(--primary-color);
+            background: white;
+            color: var(--primary-color);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
             font-weight: 500;
         }
         
-        .footer-links a:hover {
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-color);
             color: white;
         }
         
-        .footer-info {
-            margin-top: 20px;
-            opacity: 0.9;
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
         }
         
-        .footer-info p {
-            margin: 8px 0;
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
         
-        .footer-info a {
-            color: #4A90E2;
-            text-decoration: none;
-            font-weight: 600;
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
         }
         
-        .footer-info a:hover {
-            color: #8E44AD;
-        }
-        
-        /* Loading Animation */
-        .loading-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .project-image {
             width: 100%;
-            height: 100%;
-            background: rgba(255,255,255,0.9);
+            height: 250px;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
+            color: white;
+            font-size: 4rem;
         }
         
-        .loading-overlay.active {
-            opacity: 1;
-            pointer-events: all;
+        .project-content {
+            padding: 2rem;
         }
         
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #4A90E2;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .project-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
         
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header-title h1 {
-                font-size: 1.8em;
-            }
-            
-            .header-title .subtitle {
-                font-size: 1em;
-            }
-            
-            .insights-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .viz-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            
-            .viz-title {
-                font-size: 1.4em;
-            }
-            
-            .viz-container iframe {
-                height: 500px;
-            }
-            
-            .viz-section {
-                padding: 25px 15px;
-            }
-            
-            .insights-section {
-                padding: 25px 15px;
-            }
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tag {
+            padding: 0.3rem 0.8rem;
+            background: var(--light-bg);
+            color: var(--primary-color);
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .project-link {
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .link-demo {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .link-demo:hover {
+            background: var(--secondary-color);
+        }
+        
+        .link-github {
+            background: var(--dark-bg);
+            color: white;
+        }
+        
+        .link-github:hover {
+            background: #2c3e50;
+        }
+        
+        /* Contact Section */
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .contact-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .contact-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            word-break: break-all;
+        }
+        
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark-bg);
+            color: var(--text-light);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-text {
+            opacity: 0.8;
+            font-size: 0.95rem;
         }
         
         /* Scroll to Top Button */
@@ -367,7 +563,7 @@
             right: 30px;
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, #4A90E2, #8E44AD);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border-radius: 50%;
             display: flex;
@@ -377,8 +573,8 @@
             opacity: 0;
             pointer-events: none;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 999;
         }
         
         .scroll-top.visible {
@@ -388,142 +584,483 @@
         
         .scroll-top:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 2rem 0;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-toggle {
+                display: flex;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="dashboard-header">
-        <div class="header-content">
-            <a href="https://qhtani1996.github.io/" class="back-button">
-                <i class="fas fa-arrow-left"></i> Back to Portfolio
-            </a>
-            <div class="header-title">
-                <h1>GCC Countries Mortality Analysis</h1>
-                <p class="subtitle">Age-Standardized Death Rates (2012-2023)</p>
-                <p class="data-source">Data Source: IHME Global Burden of Disease Study 2023</p>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">MA</div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#hero" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
-    </header>
-    
-    <!-- Main Container -->
-    <div class="main-container">
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Meshal AlQahtani</h1>
+            <p class="hero-subtitle">MPH | Data Analyst | Public Health Researcher</p>
+            <p class="hero-description">
+                Transforming complex health data into actionable insights through advanced statistical analysis and compelling visualizations
+            </p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">
+                    <i class="fas fa-folder-open"></i> View My Work
+                </a>
+                <a href="#contact" class="btn btn-outline">
+                    <i class="fas fa-envelope"></i> Get In Touch
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <p class="section-subtitle">Passionate about using data to improve public health outcomes</p>
         
-        <!-- Key Insights Section -->
-        <section class="insights-section">
-            <h2 class="insights-title">
-                <i class="fas fa-chart-line"></i>
-                Key Findings
-            </h2>
-            <div class="insights-grid">
-                <div class="insight-card">
-                    <div class="insight-icon">
-                        <i class="fas fa-trophy"></i>
+        <div class="about-content">
+            <div class="about-image">
+                <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 5rem;">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+            </div>
+            
+            <div class="about-text">
+                <h3>Hello, I'm Meshal!</h3>
+                <p>
+                    As a Master of Public Health professional with expertise in epidemiology and biostatistics, I specialize in analyzing complex health datasets to uncover meaningful patterns and trends that inform evidence-based decision-making.
+                </p>
+                <p>
+                    My work focuses on leveraging statistical programming languages like R and Stata to conduct rigorous analyses, create interactive visualizations, and develop comprehensive health reports that bridge the gap between data and actionable public health strategies.
+                </p>
+                <p>
+                    With experience in mortality analysis, disease surveillance, and health systems research, I'm committed to using data science to address pressing public health challenges in the GCC region and beyond.
+                </p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label">Projects Completed</span>
                     </div>
-                    <div class="insight-label">Lowest Death Rate</div>
-                    <div class="insight-value">Kuwait<br><small style="font-size: 0.6em; color: #666;">387 per 100k</small></div>
+                    <div class="stat-card">
+                        <span class="stat-number">3+</span>
+                        <span class="stat-label">Years Experience</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Visualizations</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title">Technical Skills</h2>
+        <p class="section-subtitle">Tools and technologies I use to analyze and visualize health data</p>
+        
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fab fa-r-project"></i></div>
+                <h3 class="skill-name">R Programming</h3>
+                <p class="skill-description">Advanced statistical analysis, data manipulation with tidyverse, and interactive visualizations with ggplot2 and Plotly</p>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fas fa-chart-line"></i></div>
+                <h3 class="skill-name">Stata</h3>
+                <p class="skill-description">Epidemiological analysis, regression modeling, survival analysis, and public health research</p>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fas fa-chart-bar"></i></div>
+                <h3 class="skill-name">Data Visualization</h3>
+                <p class="skill-description">Creating interactive dashboards, heatmaps, and compelling visual narratives with Plotly and ggplot2</p>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fas fa-database"></i></div>
+                <h3 class="skill-name">Statistical Analysis</h3>
+                <p class="skill-description">Biostatistics, epidemiological methods, hypothesis testing, and predictive modeling</p>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fas fa-heartbeat"></i></div>
+                <h3 class="skill-name">Public Health</h3>
+                <p class="skill-description">Epidemiology, disease surveillance, health systems research, and population health analysis</p>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fas fa-code"></i></div>
+                <h3 class="skill-name">Web Development</h3>
+                <p class="skill-description">HTML, CSS, JavaScript for creating interactive web-based data dashboards and reports</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-subtitle">A showcase of my data analysis and visualization work</p>
+        
+        <div class="projects-filter">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="r">R Projects</button>
+            <button class="filter-btn" data-filter="stata">Stata Projects</button>
+            <button class="filter-btn" data-filter="visualization">Visualizations</button>
+        </div>
+        
+        <div class="projects-grid">
+            <!-- Project 1: GCC Mortality Dashboard -->
+            <div class="project-card" data-category="r visualization">
+                <div class="project-image">
+                    <i class="fas fa-chart-area"></i>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">GCC Mortality Analysis Dashboard</h3>
+                    <p class="project-description">
+                        Comprehensive interactive dashboard analyzing age-standardized death rates across GCC countries (2012-2023). Features multiple visualizations including trend analysis, country comparisons, and cause-specific mortality patterns.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">R</span>
+                        <span class="tag">Plotly</span>
+                        <span class="tag">Data Viz</span>
+                        <span class="tag">Public Health</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="projects/GCC_Mortality_Dashboard.html" class="project-link link-demo">
+                            <i class="fas fa-eye"></i> View Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2: Government Health Coverage -->
+            <div class="project-card" data-category="visualization">
+                <div class="project-image">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Government Health Coverage Map</h3>
+                    <p class="project-description">
+                        Interactive geographical visualization showing government health insurance coverage across different regions, helping identify areas with coverage gaps.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">Interactive Maps</span>
+                        <span class="tag">Health Policy</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="projects/Government_Coverage_Map_upsated.html" class="project-link link-demo">
+                            <i class="fas fa-eye"></i> View Map
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3: Private Health Coverage -->
+            <div class="project-card" data-category="visualization">
+                <div class="project-image">
+                    <i class="fas fa-hospital-user"></i>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Private Health Coverage Analysis</h3>
+                    <p class="project-description">
+                        Detailed analysis of private health insurance coverage patterns, accessibility, and demographic distribution.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">Data Analysis</span>
+                        <span class="tag">Healthcare</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="projects/Private_Coverage_Map_updated.html" class="project-link link-demo">
+                            <i class="fas fa-eye"></i> View Analysis
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4: Smoking Prevalence Heatmap -->
+            <div class="project-card" data-category="r visualization">
+                <div class="project-image">
+                    <i class="fas fa-smoking-ban"></i>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Smoking Prevalence Study</h3>
+                    <p class="project-description">
+                        Heatmap visualization analyzing smoking prevalence patterns across different demographics and regions using R statistical programming.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">R</span>
+                        <span class="tag">Heatmap</span>
+                        <span class="tag">Epidemiology</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="projects/Heatmap_smoking3.html" class="project-link link-demo">
+                            <i class="fas fa-eye"></i> View Heatmap
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 5: Life Expectancy Comparison -->
+            <div class="project-card" data-category="visualization">
+                <div class="project-image">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Life Expectancy Comparison</h3>
+                    <p class="project-description">
+                        Comparative analysis of life expectancy trends across different countries and time periods, with interactive visualizations.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">Demographics</span>
+                        <span class="tag">Trends</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="projects/life_expectancy_comapre.html" class="project-link link-demo">
+                            <i class="fas fa-eye"></i> View Analysis
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 6: GSTAT Analysis -->
+            <div class="project-card" data-category="stata">
+                <div class="project-image">
+                    <i class="fas fa-file-medical-alt"></i>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">GSTAT Statistical Analysis</h3>
+                    <p class="project-description">
+                        Comprehensive statistical analysis using Stata, including regression models, hypothesis testing, and data management for health research.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Stata</span>
+                        <span class="tag">Statistics</span>
+                        <span class="tag">Research</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="projects/gstat_smoking.html" class="project-link link-demo">
+                            <i class="fas fa-eye"></i> View Results
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 7: Saudi Drug Intoxication -->
+            <div class="project-card" data-category="r visualization">
+                <div class="project-image">
+                    <i class="fas fa-capsules"></i>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Drug Intoxication Analysis</h3>
+                    <p class="project-description">
+                        Spatial and statistical analysis of drug intoxication patterns in Saudi Arabia, using R for data processing and visualization.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">R</span>
+                        <span class="tag">Public Health</span>
+                        <span class="tag">Epidemiology</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="projects/saudi_intoxication_map.R" class="project-link link-github">
+                            <i class="fab fa-github"></i> View Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 8: Injury Burden Visualization -->
+            <div class="project-card" data-category="visualization">
+                <div class="project-image">
+                    <i class="fas fa-ambulance"></i>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Injury Burden Analysis</h3>
+                    <p class="project-description">
+                        Visualization of injury prevalence and burden across age groups and regions, identifying high-risk populations.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Data Viz</span>
+                        <span class="tag">Public Health</span>
+                        <span class="tag">Prevention</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="projects/injury_burden_by_age.png" class="project-link link-demo">
+                            <i class="fas fa-eye"></i> View Chart
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-subtitle">Let's collaborate on meaningful public health projects</p>
+        
+        <div class="contact-content">
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="contact-title">Email</h3>
+                    <a href="mailto:alqahtanimeshal96@gmail.com" class="contact-link">
+                        alqahtanimeshal96@gmail.com
+                    </a>
                 </div>
                 
-                <div class="insight-card">
-                    <div class="insight-icon">
-                        <i class="fas fa-heart-pulse"></i>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-linkedin"></i>
                     </div>
-                    <div class="insight-label">Top Cause in 2023</div>
-                    <div class="insight-value">Cardiovascular<br><small style="font-size: 0.6em; color: #666;">Diseases</small></div>
+                    <h3 class="contact-title">LinkedIn</h3>
+                    <a href="https://www.linkedin.com/in/meshal-al-qahtani-mph-1946b71a3" target="_blank" class="contact-link">
+                        Connect with me
+                    </a>
                 </div>
                 
-                <div class="insight-card improvement">
-                    <div class="insight-icon">
-                        <i class="fas fa-arrow-trend-down"></i>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-github"></i>
                     </div>
-                    <div class="insight-label">Biggest Improvement</div>
-                    <div class="insight-value">↓ 67.1<br><small style="font-size: 0.6em; color: #666;">Cardiovascular</small></div>
-                </div>
-                
-                <div class="insight-card concern">
-                    <div class="insight-icon">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <div class="insight-label">Rising Concern</div>
-                    <div class="insight-value">↑ 2.1<br><small style="font-size: 0.6em; color: #666;">Neurological</small></div>
+                    <h3 class="contact-title">GitHub</h3>
+                    <a href="https://github.com/Qhtani1996" target="_blank" class="contact-link">
+                        View my repositories
+                    </a>
                 </div>
             </div>
-        </section>
-        
-        <!-- Visualization 1: Top Causes -->
-        <section class="viz-section">
-            <div class="viz-header">
-                <i class="fas fa-ranking-star viz-icon"></i>
-                <h3 class="viz-title">Top 15 Causes of Death (2023)</h3>
-            </div>
-            <div class="viz-container">
-                <iframe src="dashboard_plot1.html" title="Top Causes of Death"></iframe>
-            </div>
-        </section>
-        
-        <!-- Visualization 2: Changes Over Time -->
-        <section class="viz-section">
-            <div class="viz-header">
-                <i class="fas fa-chart-line viz-icon"></i>
-                <h3 class="viz-title">Changes Over Time (2012-2023)</h3>
-            </div>
-            <div class="viz-container">
-                <iframe src="dashboard_plot2.html" title="Changes in Death Rates"></iframe>
-            </div>
-        </section>
-        
-        <!-- Visualization 3: Country Comparison -->
-        <section class="viz-section">
-            <div class="viz-header">
-                <i class="fas fa-globe viz-icon"></i>
-                <h3 class="viz-title">Country Comparisons</h3>
-            </div>
-            <div class="viz-container">
-                <iframe src="dashboard_plot3.html" title="Country Comparison by Cause"></iframe>
-            </div>
-        </section>
-        
-        <!-- Visualization 4: Regional Heatmap -->
-        <section class="viz-section">
-            <div class="viz-header">
-                <i class="fas fa-map viz-icon"></i>
-                <h3 class="viz-title">Regional Overview - Major Causes</h3>
-            </div>
-            <div class="viz-container">
-                <iframe src="dashboard_plot4.html" title="Regional Heatmap"></iframe>
-            </div>
-        </section>
-        
-    </div>
-    
+        </div>
+    </section>
+
     <!-- Footer -->
-    <footer class="dashboard-footer">
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="https://qhtani1996.github.io/#hero">Home</a>
-                <a href="https://qhtani1996.github.io/#about">About</a>
-                <a href="https://qhtani1996.github.io/#projects">Projects</a>
-                <a href="https://qhtani1996.github.io/#contact">Contact</a>
-            </div>
-            <div class="footer-info">
-                <p style="font-size: 1.1em; margin-bottom: 12px;"><strong>Created with R, Plotly, and ❤️</strong></p>
-                <p>Data Analysis by <strong>Meshal AlQahtani, MPH</strong></p>
-                <p>Connect: <a href="https://www.linkedin.com/in/meshal-al-qahtani-mph-1946b71a3" target="_blank">LinkedIn</a> | <a href="mailto:alqahtanimeshal96@gmail.com">Email</a></p>
-                <p style="margin-top: 20px; opacity: 0.7; font-size: 0.9em;">&copy; 2025 Meshal AlQahtani. All rights reserved.</p>
-            </div>
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/meshal-al-qahtani-mph-1946b71a3" target="_blank" class="social-link">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/Qhtani1996" target="_blank" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="mailto:alqahtanimeshal96@gmail.com" class="social-link">
+                <i class="fas fa-envelope"></i>
+            </a>
         </div>
+        <p class="footer-text">
+            &copy; 2025 Meshal AlQahtani, MPH. All rights reserved.<br>
+            Built with passion for public health and data science
+        </p>
     </footer>
-    
+
     <!-- Scroll to Top Button -->
     <div class="scroll-top" id="scrollTop">
         <i class="fas fa-arrow-up"></i>
     </div>
-    
+
     <script>
-        // Scroll to Top Functionality
-        const scrollTopBtn = document.getElementById('scrollTop');
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
         
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 300) {
                 scrollTopBtn.classList.add('visible');
@@ -531,18 +1068,53 @@
                 scrollTopBtn.classList.remove('visible');
             }
         });
-        
+
         scrollTopBtn.addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
         });
-        
-        // Add loading states to iframes
-        document.querySelectorAll('iframe').forEach(iframe => {
-            iframe.addEventListener('load', function() {
-                this.style.opacity = '1';
+
+        // Project filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'block';
+                    } else {
+                        const category = card.getAttribute('data-category');
+                        if (category.includes(filter)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
         });
     </script>
